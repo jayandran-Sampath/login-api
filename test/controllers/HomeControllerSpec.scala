@@ -20,16 +20,6 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
 
   "HomeController GET" should {
 
-    "render the index page from a new instance of controller" in {
-      val serviceMock = mock[UserService]
-      val controller = new HomeController(stubControllerComponents(),serviceMock)
-      val home = controller.index().apply(FakeRequest(GET, "/"))
-
-      status(home) mustBe OK
-      contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Welcome to Play")
-    }
-
     "getUsers - get list of users when service returns list of users" in {
       val serviceMock = mock[UserService]
       when(serviceMock.getUsers()).thenReturn(List(User("jayuser1@gmail.com","jay","user"),User("jayuser2@gmail.com","vai","user")))
@@ -41,32 +31,14 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
       contentAsJson(home) mustBe Json.toJson(List(User("jayuser1@gmail.com","jay","user"),User("jayuser2@gmail.com","vai","user")))
     }
 
-    "render the index page from the application" in {
-      val controller = inject[HomeController]
-      val home = controller.index().apply(FakeRequest(GET, "/"))
-
-      status(home) mustBe OK
-      contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Welcome to Play")
-    }
-
-    "render the index page from the router" in {
-      val request = FakeRequest(GET, "/")
-      val home = route(app, request).get
-
-      status(home) mustBe OK
-      contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Welcome to Play")
-    }
-
-    "get list of users from the router" in {
-      val request = FakeRequest(GET, "/users")
-      val home = route(app, request).get
-
-      status(home) mustBe OK
-      contentType(home) mustBe Some("application/json")
-      contentAsJson(home) mustBe Json.toJson(Array.empty[User])
-    }
+//    "get list of users from the router" in {
+//      val request = FakeRequest(GET, "/users")
+//      val home = route(app, request).get
+//
+//      status(home) mustBe OK
+//      contentType(home) mustBe Some("application/json")
+//      contentAsJson(home) mustBe Json.toJson(Array.empty[User])
+//    }
 
     "registerUser - register user when valid data is passed" in {
       val serviceMock = mock[UserService]

@@ -27,7 +27,6 @@ class AuthenticationServiceSpec extends PlaySpec with GuiceOneAppPerTest {
       val password = "password123"
       val hashPassword = service.generateHash(password)
 
-      //val hashPassword = "$2a$10$xzPlLtebmYPquqQn9WWgUe3oZ3Yo71xNkTXIQH3c9KdxAgaQNeI1q"
       service.validateUserLogin(hashPassword,password)
     }
 
