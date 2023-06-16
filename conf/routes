@@ -6,6 +6,7 @@
 # An example controller showing a sample home page
 # GET     /                           controllers.HomeController.index()
 # GET     /users                      controllers.HomeController.getUsers()
+GET     /workout                      controllers.HomeController.getExercise(exerciseSchedule: models.ExerciseSchedule)
 POST    /user/register              controllers.HomeController.registerUser
 POST    /user/login                 controllers.HomeController.loginUser
 

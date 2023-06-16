@@ -24,6 +24,7 @@ class UserService @Inject()(val userRepository: UserRepository, val authenticati
   def login(userLogin: UserLogin): Unit = {
     logger.info("login - service method invoked")
     val userLoginDetail = userRepository.getUserLogin(userLogin.userId).orElse(throw new RuntimeException("INVALID_LOGIN"))
+    logger.info("login - User exist & initializing authentication")
     try{
       authenticationService.validateUserLogin(userLoginDetail.get.hash,userLogin.password)
     } catch {
